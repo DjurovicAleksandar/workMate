@@ -16,10 +16,15 @@ import UpdateUser from "../userAndTaskManagment/UpdateUser";
 import UpdateTask from "../userAndTaskManagment/UpdateTask";
 import AddTask from "../userAndTaskManagment/AddTask";
 import AssignTask from "../userAndTaskManagment/AssignTask";
+import DashboardCalendar from "../Calendar";
+
 const Root = () => {
+  const location = useLocation();
+  const locationPath = location.pathname === "/";
+
   return (
     <>
-      <Sidebar />
+      {!locationPath && <Sidebar />}
       <Outlet />
     </>
   );
@@ -30,7 +35,6 @@ const router = createBrowserRouter(
     <Route path="/" element={<Root />}>
       <Route index element={<LoginPage />} />
       <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/calendar" element={<Calendar />} />
       <Route path="/user-info" element={<UserInfo />} />
       <Route path="/add-user" element={<AddUser />} />
       <Route path="/update-user" element={<UpdateUser />} />
@@ -38,6 +42,7 @@ const router = createBrowserRouter(
       <Route path="/add-task" element={<AddTask />} />
       <Route path="/update-task" element={<UpdateTask />} />
       <Route path="/assign-task" element={<AssignTask />} />
+      <Route path="/calendar" element={<DashboardCalendar />} />
     </Route>
   )
 );

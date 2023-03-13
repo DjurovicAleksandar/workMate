@@ -28,15 +28,11 @@ function LoginPage() {
       //Login in
       await signInWithEmailAndPassword(auth, email, password);
 
-      //Checking if the user exists
-      if (auth.currentUser?.email) {
-        //Checking if the user is  admin - then navigating to the admin page
-        if (auth.currentUser?.email === "admin@workmate.com")
-          navigate("/dashboard", { replace: true });
-        else {
-          //Checking if the user is  employee - then navigating to the employee page
-          navigate("/dashboard", { replace: true });
-        }
+      //Checking if the user is  admin - then navigating to the admin page
+      if (auth.currentUser?.email === "admin@workmate.com")
+        navigate("/dashboard", { replace: true });
+      else {
+        navigate("/", { replace: true });
       }
     } catch (error) {
       //Setting the error
@@ -52,17 +48,15 @@ function LoginPage() {
       //Admin redirection
       if (auth.currentUser?.email === "admin@workmate.com")
         navigate("/dashboard", { replace: true });
-      else {
-        //empoloyee redirection
-        navigate("/dashboard", { replace: true });
-      }
+    } else {
+      navigate("/", { replace: true });
     }
   }, []);
 
   return (
-    <div className="bg-red-300 w-full h-screen flex flex-col justify-star items-center overlay">
-      <div className="p-4 mb-14 w-[150px]">
-        <Link to="/">LOGOIN TO CONTINUTE</Link>
+    <div className="w-full h-screen flex flex-col justify-center items-center overlay">
+      <div className="p-4 mb-14 w-[150px] text-pinkCol text-xl font-bold">
+        <Link to="/">LOGIN</Link>
       </div>
       <div className="w-[300px] sm:w-[350px]">
         <form className="relative" onSubmit={loginHandler}>
@@ -71,7 +65,7 @@ function LoginPage() {
             value={email}
             onChange={() => setEmail(emailRef.current.value)}
             type="text"
-            className="w-full py-[13px] pl-[51px] text-[14px] pr-3 rounded-lg border-[1px] bg-transparent border-[#FFFFFF] focus:outline-none focus:border-yellowCol mb-[20px]"
+            className="w-full py-[13px] pl-[51px] text-[14px] text-blueCol pr-3 rounded-lg border-[1px] bg-transparent border-black  focus:border-pinkCol mb-[20px]"
             placeholder="User email"
             style={{
               backgroundImage: `url(${emailIcon})`,
@@ -86,7 +80,7 @@ function LoginPage() {
             value={password}
             onChange={() => setPassword(passwordRef.current.value)}
             type="password"
-            className="w-full py-[13px] pl-[51px] text-[14px] pr-3 rounded-lg border-[1px] bg-transparent border-[#FFFFFF] focus:outline-none focus:border-yellowCol mb-[40px]"
+            className="w-full py-[13px] pl-[51px] text-[14px] text-blueCol pr-3 rounded-lg border-[1px] bg-transparent border-black  focus:border-pinkCol mb-[40px]"
             placeholder="User password"
             style={{
               backgroundImage: `url(${lockIcon})`,
@@ -102,7 +96,7 @@ function LoginPage() {
             </span>
           )}
           <input
-            className="bg-white text-black w-full h-[45px] rounded-lg text-center font-semibold text-[1rem] hover:scale-110 active:scale-90 ease-in-out duration-300 shadow-md cursor-pointer"
+            className="bg-blueCol text-pinkCol w-full h-[45px] rounded-lg text-center font-semibold text-[1rem] hover:scale-110 active:scale-90 ease-in-out duration-300 shadow-md cursor-pointer"
             type="submit"
             value="Login"
           />

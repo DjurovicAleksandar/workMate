@@ -12,6 +12,13 @@
     text-decoration: none;
     box-sizing: border-box;
   }
+  body {
+    background: url("./assets/imgs/background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    font-family: "Montserrat", sans-serif;
+  }
 
   html {
     scroll-behavior: smooth;
@@ -22,9 +29,31 @@
     display: inline-block;
   }
 
+  .overlay {
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+
   .container {
-    padding-left: 10rem;
-    padding-top: 1rem;
-    width: 100%;
+    padding-left: 2rem;
+  }
+
+  .today {
+    border: 2px solid #f87171;
+    border-radius: 50%;
+  }
+
+  /*SCROLLBAR HIDER*/
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  /* PLACEHOLDER INPUT COLOR*/
+
+  input::placeholder {
+    color: #d3f5f5;
   }
 }

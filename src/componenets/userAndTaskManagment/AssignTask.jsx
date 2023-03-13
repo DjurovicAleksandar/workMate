@@ -74,13 +74,17 @@ function AssignTask() {
   }, []);
 
   return (
-    <div className="container flex items-center justify-center py-4">
+    <div className="container flex items-center justify-center px-12 py-4 rounded-lg h-screen">
       <form
-        className="flex flex-col justify-center items-center gap-4 w-[400px] border p-4 bg-red-100 rounded-lg"
+        className="flex flex-col justify-center items-center gap-4 w-[400px] border p-4 bg-pinkCol rounded-lg shadow-lg"
         onSubmit={assignTaskHandler}
       >
-        <h1>Task assigment to employee</h1>
-        <label htmlFor="employees">Choose a employee</label>
+        <h1 className="font-bold text-blueCol text-xl">
+          Task assigment to employee
+        </h1>
+        <label className="text-blueCol font-semibold" htmlFor="employees">
+          Choose a employee
+        </label>
 
         <select
           value={employeeID}
@@ -90,7 +94,7 @@ function AssignTask() {
           }}
           id="employees"
           name="employees"
-          className="text-m w-full"
+          className="text-m w-full rounded-md p-2"
         >
           <option value="">Select an option</option>
           {employeeList.map(({ fullName, jobTitle, id }) => {
@@ -103,7 +107,9 @@ function AssignTask() {
             );
           })}
         </select>
-        <label htmlFor="tasks">Choose a task</label>
+        <label className="font-semibold text-blueCol" htmlFor="tasks">
+          Choose a task
+        </label>
 
         <select
           value={taskID}
@@ -113,7 +119,7 @@ function AssignTask() {
           }}
           id="tasks"
           name="tasks"
-          className="text-m w-full"
+          className="text-m w-full p-2 rounded-md"
         >
           <option value="">Select an option</option>
           {taskList.map((task) => {
@@ -125,9 +131,13 @@ function AssignTask() {
           })}
         </select>
 
-        <div className="flex items-center justify-between w-full">
-          <input type="submit" value="Assign" className="cursor-pointer" />
-          <button>
+        <div className="flex items-center justify-between w-full mt-10">
+          <input
+            type="submit"
+            value="Assign"
+            className="cursor-pointer px-8 py-2 border-[1px] border-blueCol text-blueCol rounded-lg text-center font-semibold text-[12px] hover:scale-110 active:scale-90 ease-in-out duration-500"
+          />
+          <button className="cursor-pointer px-8 py-2 border-[1px] border-blueCol text-blueCol rounded-lg text-center font-semibold text-[12px] hover:scale-110 active:scale-90 ease-in-out duration-500">
             <Link to="/task-manager">Go back</Link>
           </button>
         </div>

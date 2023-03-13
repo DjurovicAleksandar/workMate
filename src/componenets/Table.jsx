@@ -1,6 +1,6 @@
 import { useMemo, useState, useEffect } from "react";
 import MaterialReactTable from "material-react-table";
-import { getDocs, doc, collection, deleteDoc } from "firebase/firestore";
+import { doc, collection, deleteDoc } from "firebase/firestore";
 import { db } from "../componenets/config/firebase";
 import { useNavigate } from "react-router-dom";
 import { getList } from "./helperFunctions/functions";
@@ -15,13 +15,18 @@ function Table() {
   //Collection of the employees from the firebase
   const employeesColectionRef = collection(db, "employees");
 
-  //Data snapshot - Get list of employees
-
   //Function for deleting employees
   const deleteEmployeeHandler = async (e) => {
     const rowElement = e.target.closest("tr");
     const employeeId =
       rowElement.children[rowElement.children.length - 1].textContent;
+
+    //Warning message before deleteing data
+    const response = confirm(
+      `Warning! You are about to delete employee permanently. Pressing OK will delete the selected data without the possibility of recovery. Are you sure you want to proceed?`
+    );
+
+    if (!response) return;
 
     const employeeDoc = doc(db, "employees", employeeId);
     await deleteDoc(employeeDoc);
@@ -51,6 +56,7 @@ function Table() {
       "phoneNumber",
       "birthday",
       "monthlySalaray",
+      "completedTasks",
       "id",
     ];
 
@@ -110,6 +116,10 @@ function Table() {
       {
         accessorKey: "monthlySalaray",
         header: "Monthly Salary",
+      },
+      {
+        accessorKey: "completedTasks",
+        header: "Completed Tasks",
       },
       {
         accessorKey: "id",
