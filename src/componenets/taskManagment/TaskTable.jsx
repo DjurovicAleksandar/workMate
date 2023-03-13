@@ -1,10 +1,10 @@
 import { useMemo, useState, useEffect } from "react";
 import MaterialReactTable from "material-react-table";
-import { getDocs, doc, collection, deleteDoc } from "firebase/firestore";
-import { db } from "../componenets/config/firebase";
+import { doc, collection, deleteDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
-import { getList } from "./helperFunctions/functions";
+import { db } from "../config/firebase";
+import { getList } from "../helperFunctions/functions";
 
 function TaskTable() {
   //navigate

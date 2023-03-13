@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Table from "../componenets/Table";
+import Table from "../employeeManagment/Table";
 
 function UserInfo() {
   return (

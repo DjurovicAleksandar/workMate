@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { auth } from "./config/firebase";
+import { auth } from "../config/firebase";
 import { signOut } from "firebase/auth";
 
 //Importing MUI icons
@@ -13,7 +13,7 @@ import ArrowCircleRightOutlinedIcon from "@mui/icons-material/ArrowCircleRightOu
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 
 //logo import
-import logo from "../assets/imgs/logo.png";
+import logo from "../../assets/imgs/logo.png";
 
 function Sidebar() {
   const navigate = useNavigate();

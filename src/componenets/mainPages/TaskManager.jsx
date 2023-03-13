@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import TaskTable from "./TaskTable";
+import TaskTable from "../taskManagment/TaskTable";
 
 function TaskManager() {
   return (

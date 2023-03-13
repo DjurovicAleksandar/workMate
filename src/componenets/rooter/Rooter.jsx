@@ -5,18 +5,22 @@ import {
   Route,
   useLocation,
 } from "react-router-dom";
-import Dashboard from "../Dashboard";
-import Sidebar from "../Sidebar";
-import Calendar from "../Calendar";
-import UserInfo from "../UserInfo";
-import TaskManager from "../TaskManager";
-import LoginPage from "../loginAndLoading/LoginPage";
-import AddUser from "../userAndTaskManagment/AddUser";
-import UpdateUser from "../userAndTaskManagment/UpdateUser";
-import UpdateTask from "../userAndTaskManagment/UpdateTask";
-import AddTask from "../userAndTaskManagment/AddTask";
-import AssignTask from "../userAndTaskManagment/AssignTask";
-import DashboardCalendar from "../Calendar";
+
+import Sidebar from "../loadLoginSidebar/Sidebar";
+
+import LoginPage from "../loadLoginSidebar/LoginPage";
+
+import Dashboard from "../mainPages/Dashboard";
+import UserInfo from "../mainPages/UserInfo";
+import TaskManager from "../mainPages/TaskManager";
+import DashboardCalendar from "../mainPages/Calendar";
+
+import AddUser from "../employeeManagment/AddUser";
+import UpdateUser from "../employeeManagment/UpdateUser";
+
+import UpdateTask from "../taskManagment/UpdateTask";
+import AddTask from "../taskManagment/AddTask";
+import AssignTask from "../taskManagment/AssignTask";
 
 const Root = () => {
   const location = useLocation();

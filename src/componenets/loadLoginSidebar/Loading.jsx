@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import logo from "../assets/imgs/logo.png";
+import logo from "../../assets/imgs/logo.png";
 
 function Loading() {
   // State to keep track of the progress of the loading bar

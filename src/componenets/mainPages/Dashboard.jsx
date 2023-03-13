@@ -12,7 +12,7 @@ import HourglassTopOutlinedIcon from "@mui/icons-material/HourglassTopOutlined";
 import AssignmentTurnedInOutlinedIcon from "@mui/icons-material/AssignmentTurnedInOutlined";
 import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import { useEffect, useState } from "react";
-import { db } from "./config/firebase";
+import { db } from "../config/firebase";
 
 const Dashboard = () => {
   //Employee and task list

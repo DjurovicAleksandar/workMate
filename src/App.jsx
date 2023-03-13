@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { RouterProvider } from "react-router-dom";
 
-import Loading from "./componenets/Loading";
+import Loading from "./componenets/loadLoginSidebar/Loading";
 import router from "./componenets/rooter/Rooter";
 
 function App() {
