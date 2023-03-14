@@ -1,10 +1,10 @@
 import Calendar from "react-calendar";
 import { useEffect } from "react";
 import { auth } from "../config/firebase";
-import { useLocation } from "react-router";
+import { useNavigate } from "react-router";
 
 function DashboardCalendar() {
-  const navigate = useLocation();
+  const navigate = useNavigate();
 
   const tileClassName = ({ date, view }) => {
     if (view === "month") {
@@ -16,7 +16,7 @@ function DashboardCalendar() {
   };
 
   useEffect(() => {
-    if (!auth.currentUser) navigate("/");
+    if (!auth.currentUser) navigate("/", { replace: true });
   }, []);
 
   return (

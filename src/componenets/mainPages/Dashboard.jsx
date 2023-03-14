@@ -13,10 +13,10 @@ import AssignmentTurnedInOutlinedIcon from "@mui/icons-material/AssignmentTurned
 import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import { useEffect, useState } from "react";
 import { auth, db } from "../config/firebase";
-import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
-  const navigate = useLocation();
+  const navigate = useNavigate();
   //Employee and task list
   const [topFive, setTopFive] = useState([]);
   const [unassignedTasks, setUnassignedTasks] = useState([]);
@@ -34,7 +34,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     (async () => {
-      if (!auth.currentUser) navigate("/");
+      if (!auth.currentUser) navigate("/", { replace: true });
       //Get collections for task and employees
       const taskData = await getDocs(collection(db, "tasks"));
       const employeeData = await getDocs(collection(db, "employees"));
