@@ -7,17 +7,26 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
+import Marquee from "react-fast-marquee";
 import { collection, getDocs } from "firebase/firestore";
 import HourglassTopOutlinedIcon from "@mui/icons-material/HourglassTopOutlined";
 import AssignmentTurnedInOutlinedIcon from "@mui/icons-material/AssignmentTurnedInOutlined";
 import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
+import * as marqueefy from "@marqueefy/marqueefy";
 import { useEffect, useState } from "react";
 import { db } from "../config/firebase";
+import { Link } from "react-router-dom";
 
 const Dashboard = () => {
+  // Initialize Marqueefy
+  const marqueefyList = Array.prototype.slice.call(
+    document.querySelectorAll(".marqueefy")
+  );
+
+  const marqueefyInstances = marqueefyList.map((m) => {
+    return new marqueefy.Marqueefy(m);
+  });
   //Employee and task list
-  const [employeeList, setEmployeeList] = useState([]);
-  const [taskList, setTaskList] = useState([]);
   const [topFive, setTopFive] = useState([]);
   const [unassignedTasks, setUnassignedTasks] = useState([]);
   const [completedTasks, setCompletedTasks] = useState("");
@@ -79,117 +88,125 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className="container flex items-center justify-center md:h-screen">
-      <div className="overlay rounded-xl w-4/5 md:h-4/5 p-4 md:flex flex-col justify-between">
-        <div className="flex flex-col gap-10 md:flex-row  md:justify-between">
-          <div className="bg-blueCol p-4 rounded-md shadow-xl">
-            <h2 className="mb-2 font-bold text-pinkCol tracking-wider">
-              Task Tracker Summary
+    <div className="container px-20 py-5">
+      <div className="w-4/5 boxCon">
+        <div className="md:flex gap-10">
+          {/*BOX1*/}
+          <div className="bg-blueCol p-4 rounded-md shadow-xl mb-1">
+            <h2 className="mb-8 font-bold text-pinkCol tracking-wider p-2 text-center sm:text-left">
+              Task tracker summary
             </h2>
-            <ul>
-              <li>
-                <div className="flex gap-2 mb-4">
-                  <div className="flex flex-col sm:flex-row gap-2">
+            <div>
+              {/*Currently*/}
+
+              <div className="text-center sm:flex items-center justify-between mb- sm:mb-12">
+                <div className="sm:flex gap-5">
+                  <div className="hidden sm:block">
                     <HourglassTopOutlinedIcon />
-                    <p className="text-pinkCol font-semibold">
-                      Tasks currently active
-                    </p>
                   </div>
-                  <p className="ml-2 font-bold">{activeTask.length}</p>
+                  <h2 className="text-pinkCol text-xs sm:text-[1rem]">
+                    Tasks currently active
+                  </h2>
                 </div>
-              </li>
-              <li>
-                <div className="flex gap-2 mb-4">
-                  <div className="flex flex-col sm:flex-row gap-2">
+                <p className="ml-2 font-bold">{activeTask.length}</p>
+              </div>
+
+              {/*Unassigned*/}
+
+              <div className="text-center sm:flex items-center justify-between mb-2 sm:mb-12">
+                <div className="sm:flex gap-5">
+                  <div className="hidden sm:block">
                     <AssignmentOutlinedIcon />
-                    <p className="text-pinkCol font-semibold">
-                      Unassigned task count
-                    </p>
                   </div>
-                  <p className="ml-2 font-bold">{unassignedTasks.length}</p>
+                  <h2 className="text-pinkCol  text-xs sm:text-[1rem]">
+                    Unassigned task count
+                  </h2>
                 </div>
-              </li>
-              <li>
-                <div className="flex gap-2">
-                  <div className="flex flex-col sm:flex-row gap-2">
+                <p className="ml-2 font-bold">{unassignedTasks.length}</p>
+              </div>
+
+              {/*Accomplished*/}
+
+              <div className="text-center sm:flex items-center justify-between mb-2 sm:mb-0">
+                <div className="sm:flex gap-5">
+                  <div className="hidden sm:block">
                     <AssignmentTurnedInOutlinedIcon />
-                    <p className="text-pinkCol font-semibold">
-                      Accomplished tasks so far
-                    </p>
                   </div>
-                  <p className="ml-2 font-bold">{completedTasks}</p>
+                  <h2 className="text-pinkCol  text-xs sm:text-[1rem]">
+                    Accomplished tasks this year
+                  </h2>
                 </div>
-              </li>
-            </ul>
+                <p className="ml-2 font-bold">{completedTasks}</p>
+              </div>
+            </div>
           </div>
-          <div className="bg-pinkCol p-4 rounded-md shadow-xl overflow-y-auto scrollbar-hide h-[220px]">
-            <h2 className="mb-2 font-bold text-blueCol tracking-wider">
+          {/*Box2*/}
+          <div className=" bg-pinkCol p-4 rounded-md shadow-xl mb-1">
+            <h2 className="mb-8 font-bold text-blueCol tracking-wider p-2 text-center sm:text-left">
               Unassigned task registry
             </h2>
-            <ul className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2  overflow-y-auto  scrollbar-hide h-[100px] md:h-[220px]">
               {unassignedTasks.map(({ taskName, id }) => {
                 return (
-                  <li className="text-xs text-blueCol" key={id}>
+                  <div className="text-xs text-blueCol " key={id}>
                     {taskName}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+          {/*Box3*/}
+          <div className=" bg-blueCol p-4 rounded-md shadow-xl">
+            <h2 className="mb-8 font-bold text-pinkCol tracking-wider p-2 text-center sm:text-left">
+              Top five employees
+            </h2>
+            <ul className="h-[120px] md:h-[180px] overflow-y-auto scrollbar-hide">
+              {topFive.map(({ fullName, jobTitle, completedTasks, id }) => {
+                return (
+                  <li
+                    key={id}
+                    className="text-xs sm:text-m flex border-b-[1px] gap-8 border-pinkCol"
+                  >
+                    <div className="w-[150px]">
+                      <h3 className="text-pinkCol ">{fullName}</h3>
+                      <p className="font-semibold mb-2">{jobTitle}</p>
+                    </div>
+                    <div className="w-[150px]">
+                      <h3 className="text-pinkCol">Tasks completed</h3>
+                      <p className="font-semibold">{completedTasks}</p>
+                    </div>
                   </li>
                 );
               })}
             </ul>
           </div>
-
-          <div className=" bg-blueCol p-4 rounded-md shadow-xl">
-            <h2 className="mb-2 font-bold text-pinkCol tracking-wider">
-              Top five employees
-            </h2>
-            <ul className="h-[180px] overflow-y-auto scrollbar-hide">
-              {topFive.map(
-                ({ fullName, jobTitle, currentTask, completedTasks, id }) => {
-                  return (
-                    <li
-                      key={id}
-                      className="text-xs flex border-b-[1px] gap-8 border-pinkCol"
-                    >
-                      <div className="w-[60px]">
-                        <p className="font-semibold mb-2">{jobTitle}</p>
-                        <h3 className="text-pinkCol ">{fullName}</h3>
-                      </div>
-                      <div className="w-[60px]">
-                        <h3 className="text-pinkCol mb-3">Tasks completed</h3>
-                        <p className="font-semibold">{completedTasks}</p>
-                      </div>
-                    </li>
-                  );
-                }
-              )}
-            </ul>
-          </div>
         </div>
-
-        <div className="flex flex-col md:flex-row justify-between items-center ">
-          <div className="hidden md:block">
-            <LineChart
-              width={screen.width <= 1200 ? 700 : 1000}
-              height={200}
-              data={data}
-            >
-              <XAxis
-                tick={{ fill: "#D3F5F5" }}
-                tickLine={{ stroke: "#f87171" }}
-                axisLine={{ stroke: "#f87171" }}
-                dataKey="year"
-              />
-              <YAxis axisLine={{ stroke: "#f87171" }} />
-              <CartesianGrid strokeDasharray="8 5" />
-              <Tooltip />
-              <Legend />
-              <Line
-                type="monotone"
-                dataKey="finishedTasks"
-                stroke="#f87171"
-                activeDot={{ r: 8 }}
-              />
-            </LineChart>
-          </div>
+        {/*graph*/}
+        <div className="hidden md:flex mt-20  items-center justify-center mb-1">
+          <LineChart
+            width={
+              screen.width <= 1000 ? 350 : screen.width <= 1200 ? 600 : 800
+            }
+            height={200}
+            data={data}
+          >
+            <XAxis
+              tick={{ fill: "#D3F5F5" }}
+              tickLine={{ stroke: "#f87171" }}
+              axisLine={{ stroke: "#f87171" }}
+              dataKey="year"
+            />
+            <YAxis axisLine={{ stroke: "#f87171" }} />
+            <CartesianGrid strokeDasharray="8 5" />
+            <Tooltip />
+            <Legend />
+            <Line
+              type="monotone"
+              dataKey="finishedTasks"
+              stroke="#f87171"
+              activeDot={{ r: 8 }}
+            />
+          </LineChart>
         </div>
       </div>
     </div>
