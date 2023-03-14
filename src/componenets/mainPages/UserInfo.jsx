@@ -1,10 +1,15 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
-// import Table from "../employeeManagment/Table";
+import { auth } from "../config/firebase";
 import Table from "../reusableComponenets/TableReusable";
 
 function UserInfo() {
+  useEffect(() => {
+    if (!auth.currentUser) navigate("/");
+  }, []);
+
   return (
-    <div className="container flex flex-col items-center px-12 pt-8 overlay">
+    <div className="container flex flex-col items-center px-12 pt-8">
       <div className="self-start mb-5">
         <button className=" px-3 md:px-8 py-2 bg-pinkCol text-blueCol rounded-lg text-xs md:text-[14px] text-center md:font-semibold  hover:scale-110 active:scale-90 ease-in-out duration-500">
           <Link to="/add-user">ADD USER</Link>

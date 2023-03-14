@@ -7,25 +7,16 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
-import Marquee from "react-fast-marquee";
 import { collection, getDocs } from "firebase/firestore";
 import HourglassTopOutlinedIcon from "@mui/icons-material/HourglassTopOutlined";
 import AssignmentTurnedInOutlinedIcon from "@mui/icons-material/AssignmentTurnedInOutlined";
 import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
-import * as marqueefy from "@marqueefy/marqueefy";
 import { useEffect, useState } from "react";
-import { db } from "../config/firebase";
-import { Link } from "react-router-dom";
+import { auth, db } from "../config/firebase";
+import { useLocation } from "react-router-dom";
 
 const Dashboard = () => {
-  // Initialize Marqueefy
-  const marqueefyList = Array.prototype.slice.call(
-    document.querySelectorAll(".marqueefy")
-  );
-
-  const marqueefyInstances = marqueefyList.map((m) => {
-    return new marqueefy.Marqueefy(m);
-  });
+  const navigate = useLocation();
   //Employee and task list
   const [topFive, setTopFive] = useState([]);
   const [unassignedTasks, setUnassignedTasks] = useState([]);
@@ -43,6 +34,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     (async () => {
+      if (!auth.currentUser) navigate("/");
       //Get collections for task and employees
       const taskData = await getDocs(collection(db, "tasks"));
       const employeeData = await getDocs(collection(db, "employees"));
@@ -88,7 +80,7 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className="container px-20 py-5 overlay">
+    <div className="container px-20 py-5">
       <div className="w-4/5 boxCon">
         <div className="md:flex gap-10">
           {/*BOX1*/}
@@ -182,7 +174,7 @@ const Dashboard = () => {
           </div>
         </div>
         {/*graph*/}
-        <div className="hidden md:flex mt-20  items-center justify-center mb-1">
+        <div className="boxCon hidden md:flex mt-20 md:w-[810px] items-center justify-center mb-1 bg-gray-400 p-4 rounded-lg shadow-lg">
           <LineChart
             width={
               screen.width <= 1000 ? 350 : screen.width <= 1200 ? 600 : 800

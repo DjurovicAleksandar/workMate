@@ -1,17 +1,23 @@
 import Calendar from "react-calendar";
-
-const tileClassName = ({ date, view }) => {
-  if (view === "month") {
-    // Add class to tiles in month view
-    if (date.getDate() === new Date().getDate()) {
-      return "today";
-    }
-  }
-};
+import { useEffect } from "react";
+import { auth } from "../config/firebase";
 
 function DashboardCalendar() {
+  const tileClassName = ({ date, view }) => {
+    if (view === "month") {
+      // Add class to tiles in month view
+      if (date.getDate() === new Date().getDate()) {
+        return "today";
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (!auth.currentUser) navigate("/");
+  }, []);
+
   return (
-    <div className="container flex items-center justify-center h-screen overlay">
+    <div className="container flex items-center justify-center h-screen">
       <div className="flex flex-col items-center justify-center">
         <h2 className="text-blueCol">Today's Date Calendar</h2>
         <Calendar tileClassName={tileClassName} />
