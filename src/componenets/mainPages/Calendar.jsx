@@ -1,8 +1,11 @@
 import Calendar from "react-calendar";
 import { useEffect } from "react";
 import { auth } from "../config/firebase";
+import { useLocation } from "react-router";
 
 function DashboardCalendar() {
+  const navigate = useLocation();
+
   const tileClassName = ({ date, view }) => {
     if (view === "month") {
       // Add class to tiles in month view

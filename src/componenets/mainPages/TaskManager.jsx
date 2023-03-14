@@ -1,9 +1,10 @@
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { auth } from "../config/firebase";
 import Table from "../reusableComponenets/TableReusable";
 
 function TaskManager() {
+  const navigate = useLocation();
   useEffect(() => {
     if (!auth.currentUser) navigate("/");
   }, []);

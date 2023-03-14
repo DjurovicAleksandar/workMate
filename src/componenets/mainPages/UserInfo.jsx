@@ -2,8 +2,10 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { auth } from "../config/firebase";
 import Table from "../reusableComponenets/TableReusable";
+import { useLocation } from "react-router-dom";
 
 function UserInfo() {
+  const navigate = useLocation();
   useEffect(() => {
     if (!auth.currentUser) navigate("/");
   }, []);
