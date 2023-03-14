@@ -15,8 +15,8 @@
   body {
     background: url("./assets/imgs/background.jpg");
     background-repeat: no-repeat;
-    background-size: cover;
-    height: 100vh;
+    background-size: strech;
+    background-position: center;
     font-family: "Montserrat", sans-serif;
   }
 
