@@ -88,7 +88,7 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className="container px-20 py-5">
+    <div className="container px-20 py-5 overlay">
       <div className="w-4/5 boxCon">
         <div className="md:flex gap-10">
           {/*BOX1*/}
@@ -133,7 +133,7 @@ const Dashboard = () => {
                     <AssignmentTurnedInOutlinedIcon />
                   </div>
                   <h2 className="text-pinkCol  text-xs sm:text-[1rem]">
-                    Accomplished tasks this year
+                    Accomplished{screen.width >= 600 && <br />} tasks this year
                   </h2>
                 </div>
                 <p className="ml-2 font-bold">{completedTasks}</p>

@@ -11,9 +11,9 @@ const tileClassName = ({ date, view }) => {
 
 function DashboardCalendar() {
   return (
-    <div className="container flex items-center justify-center h-screen">
+    <div className="container flex items-center justify-center h-screen overlay">
       <div className="flex flex-col items-center justify-center">
-        <h2 className="text-pinkCol">Today's Date Calendar</h2>
+        <h2 className="text-blueCol">Today's Date Calendar</h2>
         <Calendar tileClassName={tileClassName} />
       </div>
     </div>

@@ -30,11 +30,15 @@
   }
 
   .overlay {
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.4);
   }
 
   .container {
     padding-left: 2rem;
+  }
+
+  .boxCon {
+    margin: 0 auto;
   }
 
   .today {
